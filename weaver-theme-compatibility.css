@@ -85,3 +85,8 @@ CSS for Weaver Theme Compatibility
 	position:relative;
 	z-index:2;
 }
+.wvr-tabs-nav {
+	position:relative;
+	z-index:3;
+}
+

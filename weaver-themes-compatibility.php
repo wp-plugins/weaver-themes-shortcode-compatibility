@@ -5,7 +5,7 @@ Plugin URI: http://weavertheme.com
 Description: Weaver Theme Compatibility - Allows you to use various Weaver II and/or Weaver Xtreme shortcodes with any theme. There is no associated Settings page for this plugin.
 Author: Bruce Wampler
 Author URI: http://weavertheme.com/about
-Version: 1.0
+Version: 1.0.1
 License: GPL
 
 GPL License: http://www.opensource.org/licenses/gpl-license.php
@@ -17,7 +17,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
 define ('WEAVER_COMPATIBILITY_VERSION','Weaver Themes Shortcode Compatibility Plugin');
-define ('WEAVER_COMPATIBILITY_VN', '1.0');
+define ('WEAVER_COMPATIBILITY_VN', '1.0.1');
 define ('WVR_COMPATIBILITY_MINIFY', '.min');
 
 $cur_theme = wp_get_theme();
@@ -36,7 +36,8 @@ register_deactivation_hook( __FILE__, 'wvr_compat_deactivate' );
 // ***************************************  NOT WEAVER II  || NOT WEAVER XTREME ******************************************
 // This is the shared code for shortcodes common to Weaver II and Weaver Xtreme - needs to be first
 
-if ( strpos($cur_theme->Name, 'Weaver Xtreme' ) === false || strpos($cur_theme->Name, 'Weaver II' ) === false) {
+if ( strpos($cur_theme->Name, 'Weaver Xtreme' ) === false || strpos($cur_theme->Name, 'Weaver II' ) === false
+	|| strpos($cur_theme->Name, 'Aspen' ) === false) {
 
 	function wvr_compat_ex_wphead() {	// add to head stream as a comment  :: Both Weaver II and Weaver Xtreme
     printf("\n<!-- Weaver Theme Compatibility: %s -->\n",WEAVER_COMPATIBILITY_VERSION);
@@ -222,7 +223,7 @@ add_shortcode('span', 'wvr_compat_sc_span');
 
 
 // ***************************************  NOT WEAVER II ******************************************
-if ( strpos($cur_theme->Name, 'Weaver II' ) === false) {  // only need this if Weaver II Not installed
+if ( strpos($cur_theme->Name, 'Weaver II' ) === false && strpos($cur_theme->Name, 'Aspen' ) === false) {  // only need this if Weaver II Not installed
 
 	/* PART 1 - Extras hooks - market, update */
 
@@ -243,16 +244,22 @@ function wvr_compat_the_footer_late() {
 
 
 add_shortcode('weaver_bloginfo', 'wvr_compat_sc_bloginfo');
+add_shortcode('aspen_bloginfo', 'wvr_compat_sc_bloginfo');
 
 add_shortcode('weaver_header_image', 'wvr_compat_sc_header_image');
+add_shortcode('aspen_header_image', 'wvr_compat_sc_header_image');
 
 add_shortcode('weaver_html', 'wvr_compat_sc_html');
+add_shortcode('aspen_html', 'wvr_compat_sc_html');
 
 add_shortcode('weaver_iframe', 'wvr_compat_sc_iframe');
+add_shortcode('aspen_iframe', 'wvr_compat_sc_iframe');
 
 add_shortcode('weaver_site_title', 'wvr_compat_sc_site_title');
+add_shortcode('aspen_site_title', 'wvr_compat_sc_site_title');
 
 add_shortcode('weaver_site_desc', 'wvr_compat_sc_site_desc');	// site_title for WX
+add_shortcode('aspen_site_desc', 'wvr_compat_sc_site_desc');	// site_title for WX
 
 function wvr_compat_sc_wii_vimeo($args) {
 	require_once(dirname( __FILE__ ) . '/includes/vimeo.php' );
@@ -260,6 +267,7 @@ function wvr_compat_sc_wii_vimeo($args) {
 
 }
 add_shortcode('weaver_vimeo', 'wvr_compat_sc_wii_vimeo');
+add_shortcode('aspen_vimeo', 'wvr_compat_sc_wii_vimeo');
 
 function wvr_compat_sc_wii_youtube($args) {
 	require_once(dirname( __FILE__ ) . '/includes/youtube.php' );
@@ -267,6 +275,7 @@ function wvr_compat_sc_wii_youtube($args) {
 
 }
 add_shortcode('weaver_youtube', 'wvr_compat_sc_wii_youtube');
+add_shortcode('aspen_youtube', 'wvr_compat_sc_wii_youtube');
 
 
 // -------------------------- Weaver II Only Shortcode functions --------------------------
@@ -277,6 +286,21 @@ function wvr_compat_posts_shortcode($args = '') {
 	return '<strong>&#91;weaver_show_posts] replaced by ATW &#91;show_posts] plugin.</strong> ';
 }
 add_shortcode('weaver_show_posts', 'wvr_compat_posts_shortcode');	// weaver ii only
+
+function wvr_compat_aposts_shortcode($args = '') {
+    /* implement [weaver_show_posts]  */
+
+	return '<strong>&#91;aspen_show_posts] replaced by ATW &#91;show_posts] plugin.</strong> ';
+}
+add_shortcode('aspen_show_posts', 'wvr_compat_aposts_shortcode');
+
+function wvr_compat_aslider_shortcode($args = '') {
+    /* implement [weaver_show_posts]  */
+
+	return '<strong>&#91;aspen_slider] replaced by ATW &#91;show_sliders] plugin.</strong> ';
+}
+add_shortcode('aspen_slider', 'wvr_compat_aslider_shortcode');	// weaver ii only
+
 
 
 // ===============  [weaver_breadcrumbs style='customstyle'] ======================
@@ -295,6 +319,7 @@ function wvr_compat_sc_breadcrumbs($args = '') {
 
 }
 add_shortcode('weaver_breadcrumbs', 'wvr_compat_sc_breadcrumbs');
+add_shortcode('aspen_breadcrumbs', 'wvr_compat_sc_breadcrumbs');
 
 
 
@@ -321,6 +346,7 @@ function wvr_compat_sc_pagenav($args = '') {
 }
 
 add_shortcode('weaver_pagenav', 'wvr_compat_sc_pagenav');
+add_shortcode('aspen_pagenav', 'wvr_compat_sc_pagenav');
 
 
 // ===============  [weaver_show_if_mobile style='customstyle'] ======================
@@ -336,6 +362,7 @@ function wvr_compat_sc_show_if_mobile($args = '',$text) {
 }
 
 add_shortcode('weaver_show_if_mobile', 'wvr_compat_sc_show_if_mobile');
+add_shortcode('aspen_show_if_mobile', 'wvr_compat_sc_show_if_mobile');
 
 // ===============  [weaver_show_if_logged_in] ======================
 function wvr_compat_sc_show_if_logged_in($args = '',$text) {
@@ -347,6 +374,7 @@ function wvr_compat_sc_show_if_logged_in($args = '',$text) {
 }
 
 add_shortcode('weaver_show_if_logged_in', 'wvr_compat_sc_show_if_logged_in');
+add_shortcode('aspen_show_if_logged_in', 'wvr_compat_sc_show_if_logged_in');
 
 function wvr_compat_sc_hide_if_logged_in($args = '',$text) {
 
@@ -357,6 +385,7 @@ function wvr_compat_sc_hide_if_logged_in($args = '',$text) {
 }
 
 add_shortcode('weaver_hide_if_logged_in', 'wvr_compat_sc_hide_if_logged_in');
+add_shortcode('aspen_hide_if_logged_in', 'wvr_compat_sc_hide_if_logged_in');
 
 
 function wvr_compat_sc_hide_if_mobile($args = '',$text) {
@@ -369,7 +398,22 @@ function wvr_compat_sc_hide_if_mobile($args = '',$text) {
 }
 
 add_shortcode('weaver_hide_if_mobile', 'wvr_compat_sc_hide_if_mobile');
+add_shortcode('aspen_hide_if_mobile', 'wvr_compat_sc_hide_if_mobile');
 
+// ===============  [tabs] ===================
+function wvr_acompat_sc_tab_group($args = '', $text ) {
+	require_once(dirname( __FILE__ ) . '/includes/tabs.php' );
+    return wvr_compat_do_tab_group( $args, $text, true );
+}
+
+add_shortcode('aspen_tab_group', 'wvr_acompat_sc_tab_group');
+
+function wvr_acompat_sc_tab($args = '', $text ) {
+	require_once(dirname( __FILE__ ) . '/includes/tabs.php' );
+    return wvr_compat_do_tab( $args, $text, true );
+}
+
+add_shortcode('aspen_tab', 'wvr_acompat_sc_tab');
 
 } // end of NOT WEAVER II
 
@@ -379,7 +423,7 @@ add_shortcode('weaver_hide_if_mobile', 'wvr_compat_sc_hide_if_mobile');
 if ( strpos($cur_theme->Name, 'Weaver Xtreme' ) === false) {  // only need this if Weaver Xtreme Not installed
 
 add_shortcode('bloginfo', 'wvr_compat_sc_bloginfo');
-add_shortcode('bloginfo', 'wvr_compat_sc_bloginfo');
+add_shortcode('wvrx_bloginfo', 'wvr_compat_sc_bloginfo');
 
 add_shortcode('header_image', 'wvr_compat_sc_header_image');
 add_shortcode('wvrx_header_image', 'wvr_compat_sc_header_image');
@@ -446,7 +490,7 @@ add_shortcode('tab', 'wvr_compat_sc_tab');
 add_shortcode('wvrx_tab', 'wvr_compat_sc_tab');
 } // not Weaver Xtreme
 
-// ===============  [tabs] ===================
+// ===============  [box] ===================
 function wvr_compat_sc_box($args = '', $text ) {
 	require_once(dirname( __FILE__ ) . '/includes/box.php' );
     return wvr_compat_do_box( $args, $text, true );
