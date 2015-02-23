@@ -1,15 +1,15 @@
-=== Weaver Theme Compatibility ===
+=== Weaver Themes Shortcode Compatibility ===
 Contributors: Bruce Wampler
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: weaver theme, settings, save, subthemes
 Requires at least: 3.9
 Tested up to: 4.1
-Stable tag: 1.0
+Stable tag: 1.0.1
 
 == Description ==
 
-This plugin provides shortcode compatibility between Weaver II, Weaver Xtreme, and any other WordPress theme.
+This plugin provides shortcode compatibility between Weaver II, Aspen, Weaver Xtreme, and any other WordPress theme.
 
 = Weaver II Shortcodes Supported =
 
@@ -50,6 +50,30 @@ Weaver II Shortcodes NOT supported:
 * **[site_title]** - Display Site title.
 * **[site_tagline]** - Display Site tag line.
 * **[login]** - login/out
+
+= Aspen Shortcodes Supported =
+
+* Breadcrumbs - **[aspen_breadcrumbs]**
+* Header Image - **[aspen_header_image]**
+* HTML - **[aspen_html]**
+* DIV - **[div]text[/div]**
+* SPAN - **[span]text[/span]**
+* iFrame - **[aspen_iframe]**
+* Blog Page Navigation - **[aspen_pagenav]**
+* Show If Mobile - **[aspen_show_if_mobile]**
+* Hide If Mobile - **[aspen_hide_if_mobile]**
+* Show If Logged In - **[aspen_show_if_logged_in]**
+* Hide If Logged In - **[aspen_hide_if_logged_in]**
+* Site Title - **[aspen_site_title]**
+* Site Tagline - **[aspen_site_desc]**
+* Tab Group - **[aspen_tab_group]** - Display content in a tabbed box.
+* Vimeo - **[aspen_vimeo]**
+* YouTube - **[aspen_youtube]**
+
+Aspen Shortcodes NOT supported:
+
+* Show Posts - **[aspen_show_posts]** - This short code has been replaced by the ATW Show Posts plugin.
+* Slider - **[aspen_slider]** - No longer supported. Try ATW Show Sliders instead.
 
 = Licenses =
 
@@ -94,3 +118,7 @@ convert your existing Weaver II settings to Weaver Xtreme.
 
 = 1.0 =
 First release.
+
+= 1.0.1 =
+New: Aspen compatibility
+Fix: z-index on tabs shortcode
